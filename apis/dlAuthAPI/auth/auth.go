@@ -14,7 +14,7 @@ import (
 // Login will send a request to inner services to login in web
 func Login(username string, password string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
 	dlAuthClient := dlAuthProto.NewDlAuthClient("com.liwenbin.dev.dl.srv.dlAuth", client.NewClient())
-	rsp, err := dlAuthProto.UserLogin(context.TODO(), &dlAuthProto.UserLoginRequest{
+	rsp, err := dlAuthClient.UserLogin(context.TODO(), &dlAuthProto.UserLoginRequest{
 		Username: username,
 		Password: password,
 	})
@@ -31,11 +31,13 @@ func Login(username string, password string) (userInfo *dlAuthProto.UserInfoMsg,
 
 // Register will send a request to inner services to register in web
 func Register(username string, password string, genderStr string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
+	gender, _ := strconv.Atoi(genderStr)
+
 	dlAuthClient := dlAuthProto.NewDlAuthClient("com.liwenbin.dev.dl.srv.dlAuth", client.NewClient())
-	rsp, err := dlAuthProto.UserRegister(context.TODO(), &dlAuthProto.UserRegisterRequest{
+	rsp, err := dlAuthClient.UserRegister(context.TODO(), &dlAuthProto.UserRegisterRequest{
 		Username: username,
 		Password: password,
-		Gender:   uint32(strconv.Atoi(genderStr)),
+		Gender:   uint32(gender),
 	})
 	if err != nil {
 		return nil, err
