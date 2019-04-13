@@ -3,6 +3,8 @@ package auth
 import (
 	"errors"
 
+	"strconv"
+
 	"golang.org/x/net/context"
 
 	dlAuthProto "github.com/henry0475/diffLove/services/dlAuth/proto"
@@ -33,7 +35,7 @@ func Register(username string, password string, genderStr string) (userInfo *dlA
 	rsp, err := dlAuthProto.UserRegister(context.TODO(), &dlAuthProto.UserRegisterRequest{
 		Username: username,
 		Password: password,
-		Gender:   uint32(genderStr),
+		Gender:   uint32(strconv.Atoi(genderStr)),
 	})
 	if err != nil {
 		return nil, err
