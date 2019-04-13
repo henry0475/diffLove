@@ -54,7 +54,7 @@ func (auth *Authorization) Login(userName string, password string) (userInfo *Us
 }
 
 // Register will register a user to system
-func (auth *Authorization) Register(username string, password string, gender int) (err error) {
+func (auth *Authorization) Register(username string, password string, gender int) (userInfo *UserInfo, err error) {
 	// Check whether this username is occupied
 	stmt, err := foundation.GetMysqlClient().Prepare("SELECT `id` FROM `diffLove_db`.`users` WHERE `username`=? LIMIT 1")
 	if err != nil {
@@ -62,10 +62,10 @@ func (auth *Authorization) Register(username string, password string, gender int
 	}
 	defer stmt.Close()
 
-	userInfo := new(UserInfo)
+	userInfo = new(UserInfo)
 	_ = stmt.QueryRow(username).Scan(&userInfo.ID)
 	if userInfo.ID > 0 {
-		return errors.New("Error: this username is not valid")
+		return nil, errors.New("Error: this username is not valid")
 	}
 
 	tx, err := foundation.GetMysqlClient().Begin()
@@ -79,6 +79,7 @@ func (auth *Authorization) Register(username string, password string, gender int
 	}
 
 	userInfo.UserName = username
+	userInfo.Gender = int(gender)
 	userInfo.Token, err = createToken(username, conf.Validation.Token.Web)
 	if err != nil {
 		tx.Rollback()

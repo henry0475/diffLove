@@ -2,7 +2,6 @@ package authorization
 
 // Authorization will be in charge of account work
 type Authorization struct {
-	Token    string
 	UserName string
 }
 
