@@ -3,6 +3,7 @@ package authorization
 // Authorization will be in charge of account work
 type Authorization struct {
 	UserName string
+	Token    string
 }
 
 // UserInfo is a struct for saving user's info

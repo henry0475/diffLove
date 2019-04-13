@@ -73,11 +73,13 @@ func (auth *Authorization) Register(username string, password string, gender int
 		return
 	}
 
-	_, err = tx.Exec("INSERT INTO `diffLove_db`.`users`(`gender`,`username`,`add_time`,`password`) VALUES(?,?,?,?)", gender, username, time.Now().Unix(), getCryptedPassword(password))
+	res, err := tx.Exec("INSERT INTO `diffLove_db`.`users`(`gender`,`username`,`add_time`,`password`) VALUES(?,?,?,?)", gender, username, time.Now().Unix(), getCryptedPassword(password))
 	if err != nil {
 		return
 	}
 
+	id, _ := res.LastInsertId()
+	userInfo.ID = uint64(id)
 	userInfo.UserName = username
 	userInfo.Gender = int(gender)
 	userInfo.Token, err = createToken(username, conf.Validation.Token.Web)
@@ -88,4 +90,13 @@ func (auth *Authorization) Register(username string, password string, gender int
 
 	tx.Commit()
 	return
+}
+
+// GetUID will get the username from token's string
+func (auth *Authorization) GetUID() (uid string, err error) {
+	if auth.Token == "" {
+		return uid, errors.New("Error: There is no token which is available")
+	}
+
+	return getUIDFromToken(auth.Token)
 }
