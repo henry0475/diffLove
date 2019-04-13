@@ -1,4 +1,4 @@
-package msgBoard
+package msgboard
 
 import (
 	"time"
@@ -7,6 +7,7 @@ import (
 	"github.com/henry0475/diffLove/libs/foundation"
 )
 
+// Publish is a function for publishing
 func Publish(token string, bid int64, content string, isPublic bool) (err error) {
 	authObj := &authorization.Authorization{Token: token}
 	uid, err := authObj.GetUID()
@@ -26,20 +27,22 @@ func Publish(token string, bid int64, content string, isPublic bool) (err error)
 	return
 }
 
+// GetMsg is a function for getting messages
 func GetMsg(token string, startLine int64, offset int64) (msgList []*MsgInfo, err error) {
 	authObj := &authorization.Authorization{Token: token}
-	uid, err := authObj.GetUID()
-	if err != nil {
-		return
+	uid, _ := authObj.GetUID()
+	isPublicVal := "1"
+	if len(uid) != 0 {
+		isPublicVal = "0,1"
 	}
 
-	stmt, err := foundation.GetMysqlClient().Prepare("SELECT `mb`.`content`, `mb`.`add_time`, `u`.`username` FROM `diffLove_db`.`msg_board` AS `mb` LEFT JOIN `diffLove_db`.`users` AS `u` ON `mb`.`status`=0 AND `mb`.`bid`=(SELECT `bid` FROM `diffLove_db`.`couples` WHERE `user_id_1`=? OR `user_id_2`=? LIMIT 1) AND `mb`.`user_id`=`u`.`id` LIMIT ?,?")
+	stmt, err := foundation.GetMysqlClient().Prepare("SELECT `mb`.`content`, `mb`.`add_time`, `u`.`username` FROM `diffLove_db`.`msg_board` AS `mb` LEFT JOIN `diffLove_db`.`users` AS `u` ON `mb`.`status`=0 AND `mb`.`bid`=(SELECT `bid` FROM `diffLove_db`.`couples` WHERE `user_id_1`=? OR `user_id_2`=? LIMIT 1) AND `mb`.`user_id`=`u`.`id` AND `mb`.`is_public` IN(?) LIMIT ?,?")
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	rows, err := stmt.Query(uid, uid, startLine, offset)
+	rows, err := stmt.Query(uid, uid, isPublicVal, startLine, offset)
 	if err != nil {
 		return
 	}

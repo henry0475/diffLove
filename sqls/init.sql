@@ -49,6 +49,8 @@ CREATE TABLE `diffLove_db`.`visited_map` (
 	`title` varchar(32) DEFAULT '',
 	`content` text DEFAULT '',
 	`special_words` varchar(128) DEFAULT '',
+	`point_lat` double(12,6) default 0.0,
+  	`point_long` double(12,6) default 0.0,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8mb4 COLLATE=utf8mb4_general_ci

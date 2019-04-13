@@ -1,4 +1,4 @@
-package msgBoard
+package msgboard
 
 // MsgInfo is for message board
 type MsgInfo struct {
