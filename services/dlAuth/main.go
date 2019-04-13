@@ -1,9 +1,10 @@
 package main
 
 import (
-	"context"
 	"log"
 	"time"
+
+	"golang.org/x/net/context"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/henry0475/diffLove/services/dlAuth/auth"
@@ -59,7 +60,7 @@ func (d *DlAuth) UserRegister(ctx context.Context, req *dlAuthProto.UserRegister
 		rsp.Msg = "Error: the length of password is too short"
 		return nil
 	}
-	userInfo, err = auth.UserRegister(req.GetUsername(), req.GetPassword(), req.GetGender())
+	userInfo, err := auth.UserRegister(req.GetUsername(), req.GetPassword(), req.GetGender())
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
