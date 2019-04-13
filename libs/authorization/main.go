@@ -2,11 +2,11 @@ package authorization
 
 import (
 	"crypto/rsa"
-	"crypto/sha1"
-	"encoding/hex"
+	"errors"
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	configure "github.com/henry0475/diffLove/config"
@@ -35,6 +35,7 @@ func init() {
 	privateKey, _ = jwt.ParseRSAPrivateKeyFromPEM(privateKeyByte)
 }
 
+// Login will verify the valid of username and password
 func (auth *Authorization) Login(userName string, password string) (userInfo *UserInfo, err error) {
 	stmt, err := foundation.GetMysqlClient().Prepare("SELECT `id`,`gender`,`username`,`nickname` FROM `diffLove_db`.`users` WHERE `username`=? AND `password`=? LIMIT 1")
 	if err != nil {
@@ -42,17 +43,48 @@ func (auth *Authorization) Login(userName string, password string) (userInfo *Us
 	}
 	defer stmt.Close()
 
-	userInfo := UserInfo{}
-	err = stmt.QueryRow(userName, getHashedPassword(password)).Scan(&userInfo.ID, &userInfo.Gender, &userInfo.UserName, &userInfo.NickName)
+	userInfo = new(UserInfo)
+	err = stmt.QueryRow(userName, getCryptedPassword(password)).Scan(&userInfo.ID, &userInfo.Gender, &userInfo.UserName, &userInfo.NickName)
 	if err != nil {
 		return
 	}
 
-	userInfo.Token = createToken(userInfo.UserName, conf.Validation.Token.Web)
+	userInfo.Token, err = createToken(userInfo.UserName, conf.Validation.Token.Web)
 	return
 }
 
-func getHashedPassword(originalPassword string) string {
-	r := sha1.Sum([]byte(originalPassword + conf.Security.Salt))
-	return hex.EncodeToString(r[:])
+// Register will register a user to system
+func (auth *Authorization) Register(username string, password string, gender int) (err error) {
+	// Check whether this username is occupied
+	stmt, err := foundation.GetMysqlClient().Prepare("SELECT `id` FROM `diffLove_db`.`users` WHERE `username`=? LIMIT 1")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	userInfo := new(UserInfo)
+	_ = stmt.QueryRow(username).Scan(&userInfo.ID)
+	if userInfo.ID > 0 {
+		return errors.New("Error: this username is not valid")
+	}
+
+	tx, err := foundation.GetMysqlClient().Begin()
+	if err != nil {
+		return
+	}
+
+	_, err = tx.Exec("INSERT INTO `diffLove_db`.`users`(`gender`,`username`,`add_time`,`password`) VALUES(?,?,?,?)", gender, username, time.Now().Unix(), getCryptedPassword(password))
+	if err != nil {
+		return
+	}
+
+	userInfo.UserName = username
+	userInfo.Token, err = createToken(username, conf.Validation.Token.Web)
+	if err != nil {
+		tx.Rollback()
+		return
+	}
+
+	tx.Commit()
+	return
 }

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+service dlAuth {
+    rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {}
+    rpc UserRegister(UserRegisterRequest) returns (UserRegisterResponse) {}
+}
+
+message UserLoginRequest {
+    string username = 1;
+    string password = 2;
+}
+message UserLoginResponse {
+    uint32 status = 1;
+    string msg = 2;
+    int64 time = 3;
+    string token = 4;
+}
+
+message UserRegisterRequest {
+    string username = 1;
+    string password = 2;
+    uint32 gender = 3;
+}
+message UserRegisterResponse {
+    uint32 status = 1;
+    string msg = 2;
+    int64 time = 3;
+    string token = 4;
+}
+
+
+// protoc --go_out=plugins=micro:$GOPATH/src dlAuth.proto
