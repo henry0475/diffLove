@@ -24,11 +24,10 @@
         "time_layout": "2006-01-02T15:04:05Z"
     },
     "security": {
-        "salt": "wahaha"
+        "salt": "kjsahjkashdhaj"
     },
     "validation": {
         "token": {
-            "app": 74,
             "web": 12
         }
     },

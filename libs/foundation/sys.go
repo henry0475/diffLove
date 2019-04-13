@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	configure "code.aliyun.com/liwenbin0320/alumnusAssociation_api/config"
 	"github.com/go-redis/redis"
+	configure "github.com/henry0475/diffLove/config"
 	config "github.com/micro/go-config"
 	"github.com/micro/go-config/source/file"
 )
@@ -36,7 +36,7 @@ func init() {
 	log.Println("init foundation")
 
 	config.Load(file.NewSource(
-		file.WithPath(os.Getenv("GOPATH") + "/src/code.aliyun.com/liwenbin0320/alumnusAssociation_api/config/config.json"),
+		file.WithPath(os.Getenv("GOPATH") + "/src/github.com/henry0475/diffLove/config/config.json"),
 	))
 	config.Scan(&conf)
 
