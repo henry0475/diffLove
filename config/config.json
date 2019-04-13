@@ -1,0 +1,38 @@
+{
+    "hosts": {
+        "database": {
+            "address": "127.0.0.1",
+            "port": 3306,
+            "user": "alumnus",
+            "password": "Alumnus123!",
+            "db": "alumnus_db",
+            "charset": "utf8mb4"
+        },
+        "cache": {
+            "address": "127.0.0.1",
+            "port": 6379,
+            "auth": "henry01"
+        }
+    },
+    "urls": {
+        "servers": {
+            "chat": "https://chat.alumnus.zone"
+        }
+    },
+    "time": {
+        "time_zone": "Asia/Chongqing",
+        "time_layout": "2006-01-02T15:04:05Z"
+    },
+    "security": {
+        "salt": "wahaha"
+    },
+    "validation": {
+        "token": {
+            "app": 74,
+            "web": 12
+        }
+    },
+    "pagination": {
+        "msgboard": 10
+    }
+}
