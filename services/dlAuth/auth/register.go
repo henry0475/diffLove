@@ -8,7 +8,6 @@ import (
 func UserRegister(username string, password string, gender uint32) (tokenString string, err error) {
 	authObj := &libForAccount.Authorization{}
 
-
 	err = authObj.Register(username, password, int(gender))
 
 	if err != nil {

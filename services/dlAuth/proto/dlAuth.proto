@@ -13,7 +13,15 @@ message UserLoginResponse {
     uint32 status = 1;
     string msg = 2;
     int64 time = 3;
-    string token = 4;
+    UserInfoMsg userInfo = 4;
+}
+
+message UserInfoMsg {
+    uint64 id = 1;
+    string username = 2;
+    string nickname = 3;
+    uint32 gender = 4;
+    string token = 5;
 }
 
 message UserRegisterRequest {
@@ -25,7 +33,7 @@ message UserRegisterResponse {
     uint32 status = 1;
     string msg = 2;
     int64 time = 3;
-    string token = 4;
+    UserInfoMsg userInfo = 4;
 }
 
 

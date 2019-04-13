@@ -5,13 +5,14 @@ import (
 )
 
 // UserLogin represents a user needs to login.
-func UserLogin(username string, password string) (tokenString string, err error) {
+func UserLogin(username string, password string) (userInfo *libForAccount.UserInfo, err error) {
 	authObj := &libForAccount.Authorization{}
 
-	err = authObj.Login(username, password)
+	userInfo = new(libForAccount.UserInfo)
+	userInfo, err = authObj.Login(username, password)
 	if err != nil {
 		return
 	}
 
-	return authObj.Token, nil
+	return userInfo, nil
 }

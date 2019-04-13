@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	dlAuthProto "github.com/henry0475/diffLove/services/dlAuth/proto"
-	"github.com/henry0475/diffLove/services/dlAuth/auth"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/henry0475/diffLove/services/dlAuth/auth"
+	dlAuthProto "github.com/henry0475/diffLove/services/dlAuth/proto"
 	micro "github.com/micro/go-micro"
 )
 
@@ -18,7 +18,7 @@ type DlAuth struct{}
 func (d *DlAuth) UserLogin(ctx context.Context, req *dlAuthProto.UserLoginRequest, rsp *dlAuthProto.UserLoginResponse) error {
 	rsp.Time = time.Now().Unix()
 
-	if len(req.GetUserName()) < 3 {
+	if len(req.GetUsername()) < 3 {
 		rsp.Status = 1
 		rsp.Msg = "Error: the length of username is wrong"
 		return nil
@@ -29,7 +29,7 @@ func (d *DlAuth) UserLogin(ctx context.Context, req *dlAuthProto.UserLoginReques
 		rsp.Msg = "Error: the length of password is too short"
 		return nil
 	}
-	rsp.Token, err = users.UserLogin(req.GetUserName(), req.GetPassword())
+	userInfo, err := auth.UserLogin(req.GetUsername(), req.GetPassword())
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
@@ -45,7 +45,7 @@ func (d *DlAuth) UserLogin(ctx context.Context, req *dlAuthProto.UserLoginReques
 func (d *DlAuth) UserRegister(ctx context.Context, req *dlAuthProto.UserRegisterRequest, rsp *dlAuthProto.UserRegisterResponse) error {
 	rsp.Time = time.Now().Unix()
 
-	if len(req.GetUserName()) < 3 {
+	if len(req.GetUsername()) < 3 {
 		rsp.Status = 1
 		rsp.Msg = "Error: the length of username is wrong"
 		return nil
@@ -56,7 +56,7 @@ func (d *DlAuth) UserRegister(ctx context.Context, req *dlAuthProto.UserRegister
 		rsp.Msg = "Error: the length of password is too short"
 		return nil
 	}
-	rsp.Token, err = users.UserRegister(req.GetUserName(), req.GetPassword(), req.GetGender())
+	rsp.Token, err = auth.UserRegister(req.GetUsername(), req.GetPassword(), req.GetGender())
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
