@@ -9,8 +9,8 @@ import (
 	"github.com/micro/go-micro/client"
 )
 
-// RegularLogin will send a request to inner services to login in web
-func RegularLogin(username string, password string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
+// Login will send a request to inner services to login in web
+func Login(username string, password string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
 	dlAuthClient := dlAuthProto.NewDlAuthClient("com.liwenbin.dev.dl.srv.dlAuth", client.NewClient())
 	rsp, err := dlAuthProto.UserLogin(context.TODO(), &dlAuthProto.UserLoginRequest{
 		Username: username,
@@ -27,13 +27,13 @@ func RegularLogin(username string, password string) (userInfo *dlAuthProto.UserI
 	return
 }
 
-// RegularRegister will send a request to inner services to register in web
-func RegularRegister(username string, password string, gender uint32) (userInfo *dlAuthProto.UserInfoMsg, err error) {
+// Register will send a request to inner services to register in web
+func Register(username string, password string, genderStr string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
 	dlAuthClient := dlAuthProto.NewDlAuthClient("com.liwenbin.dev.dl.srv.dlAuth", client.NewClient())
 	rsp, err := dlAuthProto.UserRegister(context.TODO(), &dlAuthProto.UserRegisterRequest{
 		Username: username,
 		Password: password,
-		Gender:   gender,
+		Gender:   uint32(genderStr),
 	})
 	if err != nil {
 		return nil, err
