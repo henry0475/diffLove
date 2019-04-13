@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+service dlMsgBoard {
+    rpc PublishMsg(PublishMsgRequest) returns (PublishMsgResponse) {}
+    rpc GetMsg(GetMsgRequest) returns (GetMsgResponse) {}
+}
+
+message PublishMsgRequest {
+    string token = 1;
+    int64 bid = 2;
+    string content = 3;
+    bool isPublic = 4;
+}
+message PublishMsgResponse {
+    uint32 status = 1;
+    string msg = 2;
+    int64 time = 3;
+}
+
+message MsgInfoMsg {
+    uint64 id = 1;
+    string content = 2;
+    string publisher = 3;
+    int64 time = 4;
+}
+
+message GetMsgRequest {
+    string token = 1;
+    int64 startLine = 2;
+    int64 offset = 3;
+}
+message GetMsgResponse {
+    uint32 status = 1;
+    string msg = 2;
+    int64 time = 3;
+    repeated MsgInfoMsg msgInfo = 4;
+}
+
+
+// protoc --go_out=plugins=micro:$GOPATH/src dlMsgBoard.proto

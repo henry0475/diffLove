@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+service dlVisited {
+    rpc GetPoints(GetPointsRequest) returns (GetPointsResponse) {}
+    rpc GetPointDesc(GetPointDescRequest) returns (GetPointDescResponse) {}
+}
+
+message GetPointsRequest {
+    string token = 1;
+    int64 vid = 2;
+}
+message GetPointsResponse {
+    uint32 status = 1;
+    string msg = 2;
+    int64 time = 3;
+    repeated PointInfoMsg points = 4;
+}
+
+message PointInfoMsg {
+    int64 id = 1;
+    string content = 2;
+    string title = 3;
+    int64 time = 4;
+    string specialWords = 5;
+    float long = 6;
+    float lat = 7;
+}
+
+message GetPointDescRequest {
+    string token = 1;
+    int64 vid = 2;
+}
+message GetPointDescResponse {
+    uint32 status = 1;
+    string msg = 2;
+    int64 time = 3;
+    PointInfoMsg pointInfo = 4;
+}
+
+// protoc --go_out=plugins=micro:$GOPATH/src dlVisited.proto
