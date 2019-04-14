@@ -13,7 +13,7 @@ func GetDescOfPoint(token string, id int64) (pointInfoForProto *dlVisitedProto.P
 	}
 
 	pointInfoForProto = new(dlVisitedProto.PointInfoMsg)
-	pointInfoForProto.ID = pointInfo.ID
+	pointInfoForProto.Id = pointInfo.ID
 	pointInfoForProto.Title = pointInfo.Title
 	pointInfoForProto.Content = pointInfo.Content
 	pointInfoForProto.SpecialWords = pointInfo.SpecialWords
