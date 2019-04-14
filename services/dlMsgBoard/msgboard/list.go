@@ -1,4 +1,4 @@
-package msgboard
+package msgBoard
 
 import (
 	libForMsgBoard "github.com/henry0475/diffLove/libs/msgboard"
