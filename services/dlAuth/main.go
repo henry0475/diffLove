@@ -38,6 +38,7 @@ func (d *DlAuth) UserLogin(ctx context.Context, req *dlAuthProto.UserLoginReques
 		rsp.UserInfo.Username = userInfo.UserName
 		rsp.UserInfo.Id = userInfo.ID
 		rsp.UserInfo.Gender = uint32(userInfo.Gender)
+		rsp.Token = userInfo.Token
 		return nil
 	}
 

@@ -14,6 +14,7 @@ message UserLoginResponse {
     string msg = 2;
     int64 time = 3;
     UserInfoMsg userInfo = 4;
+    string token = 5;
 }
 
 message UserInfoMsg {
