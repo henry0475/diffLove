@@ -13,7 +13,7 @@ import (
 
 // GetPoints will send a request to inner services to get a list of visited points
 func GetPoints(token string, vidStr string) (pointList []*dlVisitedProto.PointInfoMsg, err error) {
-	vid, _ := strconv.ParseInt(startLineStr, 10, 64)
+	vid, _ := strconv.ParseInt(vidStr, 10, 64)
 
 	dlsVisitedClient := dlVisitedProto.NewDlVisitedClient("com.liwenbin.dev.dl.srv.dlVisited", client.NewClient())
 	rsp, err := dlsVisitedClient.GetPoints(context.TODO(), &dlVisitedProto.GetPointsRequest{
@@ -33,9 +33,9 @@ func GetPoints(token string, vidStr string) (pointList []*dlVisitedProto.PointIn
 
 // GetDescOfPoint will send a request to inner services to get a desc of point
 func GetDescOfPoint(token string, vidStr int64) (pointInfo *dlVisitedProto.PointInfoMsg, err error) {
-	vid, _ := strconv.ParseInt(bidStr, 10, 64)
+	vid, _ := strconv.ParseInt(vidStr, 10, 64)
 
-	dlsVisitedClient := dlVisitedProto.NewDlMsgBoardClient("com.liwenbin.dev.dl.srv.dlVisited", client.NewClient())
+	dlsVisitedClient := dlVisitedProto.NewDlVisitedClient("com.liwenbin.dev.dl.srv.dlVisited", client.NewClient())
 	rsp, err := dlsVisitedClient.GetPointDesc(context.TODO(), &dlVisitedProto.GetPointDescRequest{
 		Token: token,
 		Vid:   vid,
