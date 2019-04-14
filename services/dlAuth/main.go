@@ -77,7 +77,7 @@ func (d *DlAuth) UserRegister(ctx context.Context, req *dlAuthProto.UserRegister
 
 func main() {
 	service := micro.NewService(
-		micro.Name("com.liwenbin.dev.dl.srv.dlAuth"),
+		micro.Name("com.liwenbin.dev.dl.srv.auth"),
 		micro.Version("0.0.1"),
 		micro.Metadata(map[string]string{
 			"type": "dlAuth",

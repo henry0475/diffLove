@@ -15,7 +15,7 @@ func regularLogin(w http.ResponseWriter, r *http.Request) {
 		if len(r.Form.Get("username")) < 6 || len(r.Form.Get("password")) < 7 {
 			http.Error(
 				w,
-				errors.BadRequest("com.liwenbin.dev.dl.api.dlAuth", "Wrong password or username").Error(),
+				errors.BadRequest("com.liwenbin.dev.dl.api.auth", "Wrong password or username").Error(),
 				403,
 			)
 			return
@@ -25,7 +25,7 @@ func regularLogin(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(
 				w,
-				errors.BadRequest("com.liwenbin.dev.dl.api.dlAuth", err.Error()).Error(),
+				errors.BadRequest("com.liwenbin.dev.dl.api.auth", err.Error()).Error(),
 				502,
 			)
 			return
@@ -41,7 +41,7 @@ func regularLogin(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Error(
 			w,
-			errors.BadRequest("com.liwenbin.dev.dl.api.dlAuth", "The requesting method is wrong").Error(),
+			errors.BadRequest("com.liwenbin.dev.dl.api.auth", "The requesting method is wrong").Error(),
 			502,
 		)
 		return
@@ -55,7 +55,7 @@ func regularRegister(w http.ResponseWriter, r *http.Request) {
 		if len(r.Form.Get("username")) < 6 || len(r.Form.Get("password")) < 7 {
 			http.Error(
 				w,
-				errors.BadRequest("com.liwenbin.dev.dl.api.dlAuth", "Wrong password or username").Error(),
+				errors.BadRequest("com.liwenbin.dev.dl.api.auth", "Wrong password or username").Error(),
 				403,
 			)
 			return
@@ -65,7 +65,7 @@ func regularRegister(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(
 				w,
-				errors.BadRequest("com.liwenbin.dev.dl.api.dlAuth", err.Error()).Error(),
+				errors.BadRequest("com.liwenbin.dev.dl.api.auth", err.Error()).Error(),
 				502,
 			)
 			return
@@ -81,7 +81,7 @@ func regularRegister(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Error(
 			w,
-			errors.BadRequest("com.liwenbin.dev.dl.api.dlAuth", "The requesting method is wrong").Error(),
+			errors.BadRequest("com.liwenbin.dev.dl.api.auth", "The requesting method is wrong").Error(),
 			502,
 		)
 		return
