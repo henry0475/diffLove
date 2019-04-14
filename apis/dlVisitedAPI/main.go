@@ -8,7 +8,7 @@ import (
 
 func main() {
 	service := web.NewService(
-		web.Name("com.liwenbin.dev.dl.api.dlMsgBoard"),
+		web.Name("com.liwenbin.dev.dl.api.visited"),
 		web.Version("0.0.1"),
 	)
 
