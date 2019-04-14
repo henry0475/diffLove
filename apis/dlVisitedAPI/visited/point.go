@@ -32,7 +32,7 @@ func GetPoints(token string, vidStr string) (pointList []*dlVisitedProto.PointIn
 }
 
 // GetDescOfPoint will send a request to inner services to get a desc of point
-func GetDescOfPoint(token string, vidStr int64) (pointInfo *dlVisitedProto.PointInfoMsg, err error) {
+func GetDescOfPoint(token string, vidStr string) (pointInfo *dlVisitedProto.PointInfoMsg, err error) {
 	vid, _ := strconv.ParseInt(vidStr, 10, 64)
 
 	dlsVisitedClient := dlVisitedProto.NewDlVisitedClient("com.liwenbin.dev.dl.srv.dlVisited", client.NewClient())
