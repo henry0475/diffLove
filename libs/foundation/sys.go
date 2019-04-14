@@ -54,19 +54,19 @@ func init() {
 		Timeout: 20 * time.Second,
 	}
 
-	redisClient = redis.NewClient(
-		&redis.Options{
-			Addr:     conf.Hosts.Cache.Address + ":" + strconv.Itoa(conf.Hosts.Cache.Port),
-			Password: conf.Hosts.Cache.Auth,
-			DB:       0, // use default DB
-			PoolSize: 3,
-		},
-	)
-	pong, err := redisClient.Ping().Result()
-	if pong != "PONG" {
-		log.Print("Linking redis failed, because: ", err.Error())
-		return
-	}
+	// redisClient = redis.NewClient(
+	// 	&redis.Options{
+	// 		Addr:     conf.Hosts.Cache.Address + ":" + strconv.Itoa(conf.Hosts.Cache.Port),
+	// 		Password: conf.Hosts.Cache.Auth,
+	// 		DB:       0, // use default DB
+	// 		PoolSize: 3,
+	// 	},
+	// )
+	// pong, err := redisClient.Ping().Result()
+	// if pong != "PONG" {
+	// 	log.Print("Linking redis failed, because: ", err.Error())
+	// 	return
+	// }
 }
 
 // GetMysqlClient will return a client for mysql
