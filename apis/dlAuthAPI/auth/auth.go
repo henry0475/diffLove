@@ -13,7 +13,7 @@ import (
 
 // Login will send a request to inner services to login in web
 func Login(username string, password string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
-	dlAuthClient := dlAuthProto.NewDlAuthClient("com.liwenbin.dev.dl.srv.auth", client.NewClient())
+	dlAuthClient := dlAuthProto.NewDlAuthClient("com.dl.srv.auth", client.NewClient())
 	rsp, err := dlAuthClient.UserLogin(context.TODO(), &dlAuthProto.UserLoginRequest{
 		Username: username,
 		Password: password,
@@ -33,7 +33,7 @@ func Login(username string, password string) (userInfo *dlAuthProto.UserInfoMsg,
 func Register(username string, password string, genderStr string) (userInfo *dlAuthProto.UserInfoMsg, err error) {
 	gender, _ := strconv.Atoi(genderStr)
 
-	dlAuthClient := dlAuthProto.NewDlAuthClient("com.liwenbin.dev.dl.srv.auth", client.NewClient())
+	dlAuthClient := dlAuthProto.NewDlAuthClient("com.dl.srv.auth", client.NewClient())
 	rsp, err := dlAuthClient.UserRegister(context.TODO(), &dlAuthProto.UserRegisterRequest{
 		Username: username,
 		Password: password,
