@@ -7,7 +7,7 @@ import (
 
 // GetListOfPoints will get a list of points
 func GetListOfPoints(token string, vid int64) (pointListForProto []*dlVisitedProto.PointInfoMsg, err error) {
-	pointList, err = libForVisitedPoints.GetVisitedPoints(token, vid)
+	pointList, err := libForVisitedPoints.GetPoints(token, vid)
 	for i, val := range pointList {
 		pointListForProto[i].Lat = val.Lat
 		pointListForProto[i].Long = val.Long

@@ -7,7 +7,7 @@ import (
 
 // GetDescOfPoint will get a detail info of points
 func GetDescOfPoint(token string, id int64) (pointInfoForProto *dlVisitedProto.PointInfoMsg, err error) {
-	pointInfo, err = libForVisitedPoints.GetDescOfPoint(token, id)
+	pointInfo, err := libForVisitedPoints.GetPointDesc(token, id)
 	if err != nil {
 		return
 	}
