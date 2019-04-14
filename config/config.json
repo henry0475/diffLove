@@ -3,9 +3,9 @@
         "database": {
             "address": "127.0.0.1",
             "port": 3306,
-            "user": "diffLove",
-            "password": "diffLove123!",
-            "db": "diffLove_db",
+            "user": "diffLover",
+            "password": "diffLover123!",
+            "db": "diffLover_db",
             "charset": "utf8mb4"
         },
         "cache": {
