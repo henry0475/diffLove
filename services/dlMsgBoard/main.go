@@ -7,7 +7,7 @@ import (
 	"golang.org/x/net/context"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/henry0475/diffLove/services/dlMsgBoard/msgboard"
+	msgBoard "github.com/henry0475/diffLove/services/dlMsgBoard/msgboard"
 	dlMsgBoardProto "github.com/henry0475/diffLove/services/dlMsgBoard/proto"
 
 	micro "github.com/micro/go-micro"
@@ -31,7 +31,7 @@ func (d *DlMsgBoard) PublishMsg(ctx context.Context, req *dlMsgBoardProto.Publis
 		rsp.Msg = "Error: the length of content is too short"
 		return nil
 	}
-	err = msgboard.Publish(req.GetToken(), req.GetBid(), req.GetContent(), req.GetIsPublic())
+	err := msgBoard.Publish(req.GetToken(), req.GetBid(), req.GetContent(), req.GetIsPublic())
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
@@ -53,11 +53,11 @@ func (d *DlMsgBoard) GetMsg(ctx context.Context, req *dlMsgBoardProto.GetMsgRequ
 		return nil
 	}
 
-	msgList, err := msgboard.GetMsgList(req.GetToken(), req.GetStartLine(), req.GetOffset())
+	msgList, err := msgBoard.GetMsgList(req.GetToken(), req.GetStartLine(), req.GetOffset())
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
-		rsp.msgInfo = msgList
+		rsp.MsgInfo = msgList
 		return nil
 	}
 
