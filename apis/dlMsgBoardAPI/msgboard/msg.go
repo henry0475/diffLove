@@ -32,7 +32,7 @@ func GetListOfMsg(token string, startLineStr string) (listInfo []*dlMsgBoardProt
 }
 
 // PublishMsg will send a request to inner services to publish a message
-func PublishMsg(token string, bidStr int64, content string, isPublicStr string) (err error) {
+func PublishMsg(token string, bidStr string, content string, isPublicStr string) (err error) {
 	bid, _ := strconv.ParseInt(bidStr, 10, 64)
 	isPublicVal, _ := strconv.Atoi(isPublicStr)
 	isPublic := false
@@ -45,13 +45,13 @@ func PublishMsg(token string, bidStr int64, content string, isPublicStr string) 
 		Token:    token,
 		Bid:      bid,
 		Content:  content,
-		isPublic: isPublic,
+		IsPublic: isPublic,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
 	if rsp.GetStatus() != 200 {
-		return nil, errors.New(rsp.GetMsg())
+		return errors.New(rsp.GetMsg())
 	}
 
 	return
