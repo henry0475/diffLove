@@ -34,6 +34,7 @@ func (d *DlAuth) UserLogin(ctx context.Context, req *dlAuthProto.UserLoginReques
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
+		rsp.UserInfo = new(dlAuthProto.UserInfoMsg)
 		rsp.UserInfo.Username = userInfo.UserName
 		rsp.UserInfo.Id = userInfo.ID
 		rsp.UserInfo.Gender = uint32(userInfo.Gender)
@@ -60,10 +61,11 @@ func (d *DlAuth) UserRegister(ctx context.Context, req *dlAuthProto.UserRegister
 		rsp.Msg = "Error: the length of password is too short"
 		return nil
 	}
-	userInfo, err := auth.UserRegister(req.GetUsername(), req.GetPassword(), 1)
+	userInfo, err := auth.UserRegister(req.GetUsername(), req.GetPassword(), req.GetGender())
 	if err == nil {
 		rsp.Status = 200
 		rsp.Msg = "success"
+		rsp.UserInfo = new(dlAuthProto.UserInfoMsg)
 		rsp.UserInfo.Username = userInfo.UserName
 		rsp.UserInfo.Id = userInfo.ID
 		rsp.UserInfo.Gender = uint32(userInfo.Gender)
