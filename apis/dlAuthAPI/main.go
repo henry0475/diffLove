@@ -8,12 +8,12 @@ import (
 
 func main() {
 	service := web.NewService(
-		web.Name("com.dl.api.auth"),
+		web.Name("com.liwenbin.dev.dl.api.auth"),
 		web.Version("0.0.1"),
 	)
 
-	service.HandleFunc("/auth/login", regularLogin)
-	service.HandleFunc("/auth/register", regularRegister)
+	service.HandleFunc("/auth/v1/login", regularLogin)
+	service.HandleFunc("/auth/v1/egister", regularRegister)
 
 	if err := service.Run(); err != nil {
 		log.Fatal(err)
