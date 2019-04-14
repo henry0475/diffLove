@@ -24,3 +24,6 @@ nohup dlMsgBoardAPI > ~/dlMsgBoardAPI.nohup &
 
 
 nohup /root/go/bin/micro --enable_stats api --address=0.0.0.0:80 --handler=http --namespace=com.test.api > ~/apis.nohup &
+
+
+nohup /root/go/bin/micro --enable_stats api --address=0.0.0.0:80 --handler=web --namespace=com.test.api > ~/apis.nohup &

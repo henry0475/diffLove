@@ -27,7 +27,6 @@ message UserInfoMsg {
 message UserRegisterRequest {
     string username = 1;
     string password = 2;
-    uint32 gender = 3;
 }
 message UserRegisterResponse {
     uint32 status = 1;
