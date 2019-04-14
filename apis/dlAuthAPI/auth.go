@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/henry0475/diffLove/apis/dlAuthAPI/auth"
@@ -12,7 +11,7 @@ import (
 func regularLogin(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	if r.Method == "POST" {
+	if r.Method == "GET" {
 		if len(r.Form.Get("username")) < 6 || len(r.Form.Get("password")) < 7 {
 			http.Error(
 				w,
@@ -52,8 +51,7 @@ func regularLogin(w http.ResponseWriter, r *http.Request) {
 func regularRegister(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	log.Print("abc")
-	if r.Method == "POST" {
+	if r.Method == "GET" {
 		if len(r.Form.Get("username")) < 6 || len(r.Form.Get("password")) < 7 {
 			http.Error(
 				w,
