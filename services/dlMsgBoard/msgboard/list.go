@@ -12,7 +12,7 @@ func GetMsgList(token string, startLine int64, offset int64) (msgListForProto []
 		msgListForProto[i].Id = val.ID
 		msgListForProto[i].Content = val.Content
 		msgListForProto[i].Publisher = val.Publisher
-		msgListForProto[i].Time = val.Time
+		msgListForProto[i].Time = int64(val.Time)
 	}
 	return
 }
