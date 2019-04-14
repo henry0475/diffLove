@@ -12,8 +12,8 @@ func main() {
 		web.Version("0.0.1"),
 	)
 
-	service.HandleFunc("/auth/v1/login", regularLogin)
-	service.HandleFunc("/auth/v1/register", regularRegister)
+	service.HandleFunc("/auth/login", regularLogin)
+	service.HandleFunc("/auth/register", regularRegister)
 
 	if err := service.Run(); err != nil {
 		log.Fatal(err)

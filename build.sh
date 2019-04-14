@@ -23,4 +23,4 @@ nohup dlVisitedAPI > ~/dlVisitedAPI.nohup &
 nohup dlMsgBoardAPI > ~/dlMsgBoardAPI.nohup &
 
 
-nohup /root/go/bin/micro --enable_stats api --address=0.0.0.0:80 --handler=http > ~/apis.nohup &
+nohup /root/go/bin/micro --enable_stats api --address=0.0.0.0:80 --handler=http --namespace=com.liwenbin.dev.dl > ~/apis.nohup &
